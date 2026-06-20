@@ -1,0 +1,164 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    /* Rich, dark blue-grey gradient background */
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* --- BACKGROUND BUBBLES EFFECT --- */
+.bubbles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Sits safely behind the cards */
+    pointer-events: none; /* Allows clicking through them */
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -100px; /* Start below the screen */
+    background: rgba(255, 255, 255, 0.1); /* Soft semi-transparent white */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    animation: floatUp 12s infinite linear;
+
+    /* Centers your new emojis perfectly inside the floating bubbles */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem; 
+}
+
+/* Custom sizes, horizontal positions, and floating speeds for each bubble */
+.bubble:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-delay: 0s; animation-duration: 10s; }
+.bubble:nth-child(2) { width: 40px; height: 40px; left: 25%; animation-delay: 2s; animation-duration: 12s; }
+.bubble:nth-child(3) { width: 120px; height: 120px; left: 40%; animation-delay: 4s; animation-duration: 15s; }
+.bubble:nth-child(4) { width: 60px; height: 60px; left: 60%; animation-delay: 1s; animation-duration: 11s; }
+.bubble:nth-child(5) { width: 90px; height: 90px; left: 75%; animation-delay: 5s; animation-duration: 14s; }
+.bubble:nth-child(6) { width: 50px; height: 50px; left: 90%; animation-delay: 3s; animation-duration: 9s; }
+
+/* The Floating Animation */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.5; /* Fade in quickly as it enters the screen */
+    }
+    90% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-120vh) rotate(360deg); /* Float past the top of the viewport */
+        opacity: 0; /* Smooth fade out at the top */
+    }
+}
+
+/* --- Content Layout --- */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 50px auto;
+    text-align: center;
+    position: relative;
+    z-index: 10; /* Keeps the text and cards completely in front of bubbles */
+}
+
+/* Header Styles */
+.hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    background: linear-gradient(to right, #ffd700, #ffa500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Makes title text a beautiful metallic gold gradient */
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    color: #94a3b8; /* Elegant muted silver text */
+    margin-bottom: 50px;
+}
+
+/* Responsive Grid for the 4 Cards */
+.quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+/* Glassmorphism Card Styling (Translucent to let bubbles pass behind blur) */
+.quote-card {
+    background: rgba(30, 41, 59, 0.75); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #334155;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Smooth hover lifting effect */
+.quote-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(255, 215, 0, 0.15); /* Soft gold glow on hover */
+}
+
+/* Image Formatting inside the card */
+.card-photo {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; /* Prevents image squishing or stretching */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #475569;
+}
+/* Sibling Quote Text */
+.quote {
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+    margin-bottom: 20px;
+}
+
+/* Sibling Name Text */
+.sibling-name {
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ffd700;
+    margin-top: auto; /* Always keeps names perfectly aligned at the bottom */
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 600px) {
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+    .hero-text p {
+        font-size: 1rem;
+    }
+}
